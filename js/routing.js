@@ -47,9 +47,27 @@ function getRoute(origin){
         'return': 'polyline'
       }; 
       
-    function onResult(result){
-        console.log("I got a route");
+    // Define a callback function to process the routing response:
+    var onResult = function(result) {
+    // ensure that at least one route was found
+    if (result.routes.length) {
+      result.routes[0].sections.forEach((section) => {
+           // Create a linestring to use as a point source for the route line
+          let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+  
+          // Create a polyline to display the route:
+          let routeLine = new H.map.Polyline(linestring, {
+            style: { strokeColor: 'red', lineWidth: 6 }
+          });
+  
+          // Add the route polyline and the two markers to the map:
+          map.addObject(routeLine);
+  
+          // Set the map's viewport to make the whole route visible:
+          map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+      });
     }
+  };
 
     router.calculateRoute(routingParameters, onResult,
     function(error) {
