@@ -53,9 +53,16 @@ async function showPosition(address){
 function showStores(origin){
     geocoder.browse({
         at: origin.lat+','+origin.lng,
-        limit: 1,
+        limit: 5,
         categories: '600-6300-0066'
       }, function(result){
+        result.items.forEach(item=>{
+            let storeMarker = new H.map.Marker(item.position);
+            storeMarker.setData(item.title);
+                // add marker to map
+            map.addObject(storeMarker);
+        })
+        
           console.log(result)
 
         }, function(error){console.log(error)})
