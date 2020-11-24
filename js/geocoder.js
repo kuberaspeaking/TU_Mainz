@@ -1,4 +1,5 @@
 var geocoder = platform.getSearchService();
+
 var peopleGroup = new H.map.Group();
 map.addObject(peopleGroup);
 
@@ -6,10 +7,13 @@ function getMyPosition(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position=>{
             // console.log(position.coords)
-            let myMarker = new H.map.Marker({lat:position.coords.latitude,lng:position.coords.longitude});
+            var myPosition = {lat:position.coords.latitude,lng:position.coords.longitude};
+            let myMarker = new H.map.Marker(myPosition);
             myMarker.setData("Hi I'm Shruti");
               // add marker to map
             peopleGroup.addObject(myMarker);
+            getIsoline(myPosition);
+            showStores(myPosition);
         })
             
         // console.log(position.coords)
@@ -43,6 +47,18 @@ async function showPosition(address){
                 resolve(result.items[0].position)
               },function (error){reject(error.message)})
             });
+}
+
+
+function showStores(origin){
+    geocoder.browse({
+        at: origin.lat+','+origin.lng,
+        limit: 1,
+        categories: '600-6300-0066'
+      }, function(result){
+          console.log(result)
+
+        }, function(error){console.log(error)})
 }
 getMyPosition();
 showPeople();
