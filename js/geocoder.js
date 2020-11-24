@@ -14,6 +14,7 @@ function getMyPosition(){
             peopleGroup.addObject(myMarker);
             getIsoline(myPosition);
             showStores(myPosition);
+            getRoute(myPosition);
         })
             
         // console.log(position.coords)
@@ -26,6 +27,7 @@ function showPeople(){
         data.people.forEach(async person=>{
             let position = await showPosition(person.address);//get postion for person
             // place a marker
+            console.log(position);
             let peopleInfo = person.name+' wants '+person.list[0];
 
             let peopleMarker = new H.map.Marker(position);

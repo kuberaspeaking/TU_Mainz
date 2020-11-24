@@ -33,3 +33,30 @@ function getIsoline(origin){
     })
 
 }
+
+function getRoute(origin){
+    var routingParameters = {
+        'routingMode': 'fast',
+        'transportMode': 'car',
+        // The start point of the route:
+        'origin': origin.lat+','+origin.lng,
+        'via':'52.45675,13.38443',
+        // The end point of the route:
+        'destination': '52.54066,13.40121',
+        // Include the route shape in the response
+        'return': 'polyline'
+      }; 
+      
+    function onResult(result){
+        console.log("I got a route");
+    }
+
+    router.calculateRoute(routingParameters, onResult,
+    function(error) {
+        alert(error.message);
+    });
+
+    
+
+}
+// getRoute();
