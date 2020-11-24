@@ -8,18 +8,20 @@ function showPeople(){
         data.people.forEach(async person=>{
             let position = await showPosition(person.address);//get postion for person
             // place a marker
+            let peopleInfo = person.name+' wants '+person.list[0];
 
             let peopleMarker = new H.map.Marker(position);
+            peopleMarker.setData(peopleInfo);
               // add marker to map
             peopleGroup.addObject(peopleMarker);
             // console.log(position);
             map.getViewModel().setLookAtData({
                 bounds: peopleGroup.getBoundingBox()
             });
-        })
-        console.log(data)})
+        });
+        // console.log(data)})
+    })
 }
-
 async function showPosition(address){
     return new Promise((resolve, reject)=>{
         geocoder.geocode({q: address},(result) => {
