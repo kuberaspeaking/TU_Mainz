@@ -5,7 +5,13 @@ map.addObject(peopleGroup);
 function getMyPosition(){
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position=>{
-            console.log(position.coords)})
+            // console.log(position.coords)
+            let myMarker = new H.map.Marker({lat:position.coords.latitude,lng:position.coords.longitude});
+            myMarker.setData("Hi I'm Shruti");
+              // add marker to map
+            peopleGroup.addObject(myMarker);
+        })
+            
         // console.log(position.coords)
     }
 }
