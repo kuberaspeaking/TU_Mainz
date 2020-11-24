@@ -33,3 +33,21 @@ var hereMarker = new H.map.Marker(mapCenter,
   });
 // add marker to map
 map.addObject(hereMarker);
+
+
+// Add event listener:
+map.addEventListener('tap', function(evt) {
+  // Log 'tap' and 'mouse' events:
+  if(evt.target instanceof H.map.Marker){
+    // console.log("Hi Marker"); 
+    // Create an info bubble object at a specific geographic location:
+    var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+      content: evt.target.getData()
+    });
+
+    // Add info bubble to the UI:
+    ui.addBubble(bubble);
+
+  }
+  
+});
