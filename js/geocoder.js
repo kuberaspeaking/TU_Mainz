@@ -1,6 +1,14 @@
 var geocoder = platform.getSearchService();
 var peopleGroup = new H.map.Group();
 map.addObject(peopleGroup);
+
+function getMyPosition(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position=>{
+            console.log(position.coords)})
+        // console.log(position.coords)
+    }
+}
 function showPeople(){
     fetch('peopleData.json') // call to your DB
     .then(response => response.json())
@@ -30,5 +38,5 @@ async function showPosition(address){
               },function (error){reject(error.message)})
             });
 }
-
+getMyPosition();
 showPeople();
